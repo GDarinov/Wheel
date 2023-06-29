@@ -1,0 +1,72 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .wheel {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    background-color: lightgray;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    transition: transform 5s ease-in-out; /* Adjust the duration as desired */
+    transform-origin: center;
+    /* transform: rotate(360deg); */
+  }
+  
+  .wheel-segment {
+    width: 400px;
+    height: 400px;
+    position: absolute;
+    /* clip-path: polygon(49% 48%, 41% 100%, 61% 100%); */
+    /* clip-path: polygon(50% 50%, 0 38%, 0 60%); */
+    clip-path: polygon(50% 50%, 0 42%, 0 60%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    font-size: 1.2rem;
+    text-align: center;
+    transform-origin: 50% 50%; /* This makes sure the rotation occurs around the center */
+}
+
+.segment-value {
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    z-index: 1;
+  }
+
+  .display-area {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .bet-buttons {
+    margin-top: 10px;
+  }
+  
+  .bet-button {
+    margin-right: 5px;
+  }
+  
+  .bet-button.active {
+    background-color: lightblue;
+  }
+  
+  button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+  

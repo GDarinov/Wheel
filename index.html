@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Wheel of Fortune</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <img src="pngegg.png" height="70px" width="50px" />
+        <div class="wheel">
+            <div class="wheel-segment" style="transform: rotate(0deg); background-color: green;">
+                <span class="segment-value"></span>
+            </div>
+            <div class="wheel-segment" style="transform: rotate(20deg); background-color: orange;"><span class="segment-value"></span></div>
+            <div class="wheel-segment" style="transform: rotate(40deg); background-color: purple;"><span class="segment-value"></span></div>
+            <div class="wheel-segment" style="transform: rotate(60deg); background-color: cyan;"><span class="segment-value"></span></div>
+            <div class="wheel-segment" style="transform: rotate(80deg); background-color: pink;"><span class="segment-value"></span></div>
+            <div class="wheel-segment" style="transform: rotate(100deg); background-color: teal;"><span class="segment-value"></span></div>
+            <div class="wheel-segment" style="transform: rotate(120deg); background-color: silver;"><span class="segment-value"></span></div>
+            <div class="wheel-segment" style="transform: rotate(140deg); background-color: gold;"><span class="segment-value"></span></div>
+            <div class="wheel-segment" style="transform: rotate(160deg); background-color: maroon;"><span class="segment-value"></span></div>
+            <div class="wheel-segment" style="transform: rotate(180deg); background-color: navy;"><span class="segment-value"></span></div>
+            <div class="wheel-segment" style="transform: rotate(200deg); background-color: olive;"><span class="segment-value"></span></div>
+            <div class="wheel-segment" style="transform: rotate(220deg); background-color: indigo;"><span class="segment-value"></span></div>
+            <div class="wheel-segment" style="transform: rotate(240deg); background-color: coral;"><span class="segment-value"></span></div>
+            <div class="wheel-segment" style="transform: rotate(260deg); background-color: plum;"><span class="segment-value"></span></div>
+            <div class="wheel-segment" style="transform: rotate(280deg); background-color: lime;"><span class="segment-value"></span></div>
+            <div class="wheel-segment" style="transform: rotate(300deg); background-color: salmon;"><span class="segment-value"></span></div>
+            <div class="wheel-segment" style="transform: rotate(320deg); background-color: violet;"><span class="segment-value"></span></div>
+            <div class="wheel-segment" style="transform: rotate(340deg); background-color: chocolate;"><span class="segment-value"></span></div>  
+        </div>
+        <div class="display-area">
+            <p id="good-luck-message">Good Luck!</p>
+            <p id="last-win">Last win: </p>
+            <div class="bet-buttons">
+              <button class="bet-button" data-bet-amount="1">1</button>
+              <button class="bet-button" data-bet-amount="5">5</button>
+              <button class="bet-button" data-bet-amount="10">10</button>
+              <button class="bet-button" data-bet-amount="20">20</button>
+              <button class="bet-button" data-bet-amount="50">50</button>
+              <p id="balance-display">Balance: 500 coins</p> <!-- Add balance display -->
+            </div>
+          </div>
+          <button id="spin-button">Spin</button>
+          <button id="reset-button">Reset</button>
+        </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
