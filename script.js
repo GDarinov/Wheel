@@ -28,10 +28,13 @@ document.addEventListener("DOMContentLoaded", function () {
     { text: "0", value: 0 },
     { text: "5x", value: 5 },
     { text: "0",  value: 0 },
-    { text: "10x", value: 10 },
-    { text: "0",  value: 0 },
     { text: "Free Spins", value: 'free spins' },
+    { text: "10x", value: 10 },
+    { text: "20x",  value: 20 },
+    
   ];
+
+  let spinsCounter = 0;
 
   function delay(duration) {
     return new Promise(resolve => setTimeout(resolve, duration));
@@ -138,6 +141,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Function to spin the wheel
   function spinWheel() {
+    spinsCounter++;
     if (currentBetAmount === 0) {
       alert("Please choose a bet amount.");
       return;
@@ -162,8 +166,19 @@ document.addEventListener("DOMContentLoaded", function () {
     spinButton.disabled = true;
 
     // Get a random index to determine the selected option
-    const randomIndex = Math.floor(Math.random() * options.length);
+    let randomIndex=0;
+    if(spinsCounter%10===1 || spinsCounter%10===5 || spinsCounter%10===7){
+        randomIndex=16;
+    }
+    else if(spinsCounter%10===2 || spinsCounter%10===6){
+        randomIndex=17;
+    }else {
+        randomIndex = Math.floor(Math.random() * options.length);
+        if(randomIndex>15)randomIndex-=3;
+    }
     currentOption = options[randomIndex];
+   console.log(currentOption)
+   console.log(spinsCounter);
 
     // Calculate the rotation angle based on the selected option
     const baseAngle = 360 / options.length; // Angle between each segment
