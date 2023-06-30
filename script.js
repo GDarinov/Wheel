@@ -8,6 +8,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const resetButton = document.getElementById("reset-button");
   const balanceDisplay = document.getElementById("balance-display");
   const goodLuckMessage = document.getElementById("good-luck-message");
+  const remainingFreeSpinsDisplay = document.getElementById("remaining-free-spins");
+  const totalWinningsDisplay = document.getElementById("total-winnings");
 
   // Store the available options and their respective values
   const options = [
@@ -19,17 +21,80 @@ document.addEventListener("DOMContentLoaded", function () {
     { text: "2x", value: 2 },
     { text: "0", value: 0 },
     { text: "1x", value: 1 },
-    { text: "0", value: 0 },
+    { text: "0",  value: 0 },
     { text: "3x", value: 3 },
-    { text: "0", value: 0 },
+    { text: "fre",  value: 'free spins' },
     { text: "1x", value: 1 },
-    { text: "0", value: 0 },
+    { text: "fre0", value: 'free spins' },
     { text: "5x", value: 5 },
-    { text: "0", value: 0 },
+    { text: "fre0",  value: 'free spins' },
     { text: "10x", value: 10 },
-    { text: "0", value: 0 },
-    { text: "Free Spins", value: 'freeSpins' },
+    { text: "fre0",  value: 'free spins' },
+    { text: "Free Spins", value: 'free spins' },
   ];
+
+  function delay(duration) {
+    return new Promise(resolve => setTimeout(resolve, duration));
+  }
+
+  let remainingFreeSpins = 0;
+
+  function freeSpin(betAmount) {
+    return new Promise((resolve) => {
+        defaultAngle+=1800;
+      // The original code for your freeSpin function here, but without the setTimeout...
+
+      // Get a random index to determine the selected option
+      const randomIndex = Math.floor(Math.random() * options.length);
+      currentOption = options[randomIndex];
+
+      // Calculate the rotation angle based on the selected option
+      const baseAngle = 360 / options.length; // Angle between each segment
+      const winningAngle = 270; // Angle to position the winning sector
+      const rotationAngle =
+        360 - (randomIndex * baseAngle + winningAngle) + defaultAngle;
+
+      // Apply the rotation animation to the wheel
+      wheel.style.transform = "rotate(" + rotationAngle + "deg)";
+
+      // Wait for the animation to finish and calculate the winnings
+      delay(5000).then(() => {
+        if(currentOption.value==='free spins'){
+            remainingFreeSpins+=3;
+          console.log('freeSpins');
+          alert('Congratulations! You won 3 more free spins')
+          resolve(0); // Resolve with 0 winnings if it's a free spin
+        } else {
+          // Calculate the winnings based on the selected option and bet amount
+          let winnings = currentOption.value * betAmount;
+          resolve(winnings); // Resolve with the calculated winnings
+        }
+      });
+    });
+  }
+
+
+  async function freeSpins(betAmount) {
+    // remainingFreeSpinsDisplay.style.display = "block";
+    let totalWinnings = 0;
+    remainingFreeSpinsDisplay.textContent = remainingFreeSpins;
+    while(remainingFreeSpins>0){
+      let currentWin= await freeSpin(betAmount);
+      if(currentWin>0)totalWinnings+=currentWin;
+      remainingFreeSpins--;
+      totalWinningsDisplay.textContent = totalWinnings;
+     remainingFreeSpinsDisplay.textContent = remainingFreeSpins;
+    balance += currentWin;
+    updateBalanceDisplay(); 
+    }
+
+  
+    alert("Congratulations! You won " + totalWinnings + " coins in free spins")
+    lastWin.textContent = `Last win: ${totalWinnings} coins`;
+    totalWinningsDisplay.textContent = 0;
+     remainingFreeSpinsDisplay.textContent = remainingFreeSpins;
+    return totalWinnings;
+  }
 
   // Update the value inside each wheel segment
   const segmentValues = document.querySelectorAll(".segment-value");
@@ -77,8 +142,9 @@ document.addEventListener("DOMContentLoaded", function () {
       alert("Please choose a bet amount.");
       return;
     }
+
     goodLuckMessage.style.display = "block";
-    
+
     // Increase default angle
     defaultAngle += 1800;
 
@@ -112,17 +178,26 @@ document.addEventListener("DOMContentLoaded", function () {
     setTimeout(function () {
       goodLuckMessage.style.display = "none";
       spinButton.disabled = false;
-
+      let winnings=0
+      if(currentOption.value==='free spins'){
+        console.log('freeSpins');
+        remainingFreeSpins+=3;
+        alert('Congratulations! You won 3 free spins!')
+        winnings = freeSpins(currentBetAmount);
+        
+      }else{
       // Calculate the winnings based on the selected option and bet amount
-      const winnings = currentOption.value * currentBetAmount;
-      if (winnings != 0) lastWin.textContent = `Last win: ${winnings} coins`;
-      // Add the winnings to the balance
-      balance += winnings;
-      updateBalanceDisplay();
-      if (winnings != 0) {
+      winnings = currentOption.value * currentBetAmount;
+      }
+
+      if (winnings > 0) {
+        lastWin.textContent = `Last win: ${winnings} coins`;
+      // Add the winnings to the balance      
+      balance +=winnings;
+        updateBalanceDisplay()
+
         alert("Congratulations! You won " + winnings + " coins.");
-        lastWin = winnings;
-      } else alert("Try again!");
+      } else if(winnings===0) alert("Try again!");
     }, 5000); 
   }
   // Add event listener to the reset button
