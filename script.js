@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const spinButton = document.getElementById("spin-button");
   const lastWin = document.getElementById("last-win");
   const betButtons = document.querySelectorAll(".bet-button");
-  const resetButton = document.getElementById("reset-button");
   const balanceDisplay = document.getElementById("balance-display");
   const goodLuckMessage = document.getElementById("good-luck-message");
   const remainingFreeSpinsDisplay = document.getElementById("remaining-free-spins");
@@ -31,7 +30,6 @@ document.addEventListener("DOMContentLoaded", function () {
     { text: "Free Spins", value: 'free spins' },
     { text: "10x", value: 10 },
     { text: "20x",  value: 20 },
-    
   ];
 
   let spinsCounter = 0;
@@ -139,9 +137,51 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let defaultAngle = 0;
 
+  //Get the spin indexes for the rigged spins
+  function getNonConsecutiveNumbers() {
+    const digits = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  
+    function getRandomIndex(max) {
+      return Math.floor(Math.random() * max);
+    }
+  
+    function getNonAdjacentDigits(arr, n) {
+      let result = [];
+  
+      while (result.length < n) {
+        const index = getRandomIndex(arr.length);
+        const current = arr[index];
+        
+        // Check if the current number is adjacent to any number in the result array
+        const isAdjacent = result.some((num) => Math.abs(num - current) === 1);
+  
+        if (!isAdjacent) {
+          result.push(current);
+          arr.splice(index, 1);
+        }
+      }
+  
+      return result;
+    }
+  
+    let threeNumbers = getNonAdjacentDigits(digits, 3);
+    let twoNumbers = getNonAdjacentDigits(digits, 2);
+  
+    return [threeNumbers, twoNumbers];
+  }
+
+     let [threeNumbers,twoNumbers] = getNonConsecutiveNumbers();
+
   // Function to spin the wheel
   function spinWheel() {
     spinsCounter++;
+
+    if(spinsCounter%10===0){
+        [threeNumbers,twoNumbers] = getNonConsecutiveNumbers();
+    }
+    //spinsCounter++;
+    console.log(...twoNumbers)
+    console.log(...threeNumbers)
     if (currentBetAmount === 0) {
       alert("Please choose a bet amount.");
       return;
@@ -165,19 +205,20 @@ document.addEventListener("DOMContentLoaded", function () {
     // Disable the spin button
     spinButton.disabled = true;
 
+
     // Get a random index to determine the selected option
     let randomIndex=0;
-    if(spinsCounter%10===1 || spinsCounter%10===5 || spinsCounter%10===7){
+    if(spinsCounter%10===threeNumbers[0] || spinsCounter%10===threeNumbers[1] || spinsCounter%10===threeNumbers[2]){
         randomIndex=16;
     }
-    else if(spinsCounter%10===2 || spinsCounter%10===6){
+    else if(spinsCounter%10===twoNumbers[0] || spinsCounter%10===twoNumbers[1]){
         randomIndex=17;
     }else {
         randomIndex = Math.floor(Math.random() * options.length);
         if(randomIndex>15)randomIndex-=3;
     }
     currentOption = options[randomIndex];
-   console.log(currentOption)
+   console.log(currentOption);
    console.log(spinsCounter);
 
     // Calculate the rotation angle based on the selected option
@@ -215,27 +256,6 @@ document.addEventListener("DOMContentLoaded", function () {
       } else if(winnings===0) alert("Try again!");
     }, 5000); 
   }
-  // Add event listener to the reset button
-  resetButton.addEventListener("click", function () {
-    // Reset the selected option, bet amount, and balance
-    currentOption = null;
-    currentBetAmount = 0;
-    balance = 500;
-
-    // Clear the selected bet amount styling
-    betButtons.forEach(function (btn) {
-      btn.classList.remove("active");
-    });
-
-    // Clear the selected option display
-    selectedOption.textContent = "";
-
-    // Enable the spin button
-    spinButton.disabled = false;
-
-    // Update the balance display
-    updateBalanceDisplay();
-  });
 
   // Update the balance display initially
   updateBalanceDisplay();

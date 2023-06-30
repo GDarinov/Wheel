@@ -25,8 +25,6 @@
     width: 400px;
     height: 400px;
     position: absolute;
-    /* clip-path: polygon(49% 48%, 41% 100%, 61% 100%); */
-    /* clip-path: polygon(50% 50%, 0 38%, 0 60%); */
     clip-path: polygon(50% 50%, 0 42%, 0 60%);
     display: flex;
     justify-content: center;
@@ -36,6 +34,7 @@
     font-size: 1.2rem;
     text-align: center;
     transform-origin: 50% 50%; /* This makes sure the rotation occurs around the center */
+    border-radius: 50%;
 }
 
 .segment-value {
