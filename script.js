@@ -23,13 +23,13 @@ document.addEventListener("DOMContentLoaded", function () {
     { text: "1x", value: 1 },
     { text: "0",  value: 0 },
     { text: "3x", value: 3 },
-    { text: "fre",  value: 'free spins' },
+    { text: "0",  value: 0 },
     { text: "1x", value: 1 },
-    { text: "fre0", value: 'free spins' },
+    { text: "0", value: 0 },
     { text: "5x", value: 5 },
-    { text: "fre0",  value: 'free spins' },
+    { text: "0",  value: 0 },
     { text: "10x", value: 10 },
-    { text: "fre0",  value: 'free spins' },
+    { text: "0",  value: 0 },
     { text: "Free Spins", value: 'free spins' },
   ];
 
