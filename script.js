@@ -62,7 +62,6 @@ document.addEventListener("DOMContentLoaded", function () {
       delay(5000).then(() => {
         if(currentOption.value==='free spins'){
             remainingFreeSpins+=3;
-          console.log('freeSpins');
           alert('Congratulations! You won 3 more free spins')
           resolve(0); // Resolve with 0 winnings if it's a free spin
         } else {
@@ -180,8 +179,6 @@ document.addEventListener("DOMContentLoaded", function () {
         [threeNumbers,twoNumbers] = getNonConsecutiveNumbers();
     }
     //spinsCounter++;
-    console.log(...twoNumbers)
-    console.log(...threeNumbers)
     if (currentBetAmount === 0) {
       alert("Please choose a bet amount.");
       return;
@@ -218,8 +215,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if(randomIndex>15)randomIndex-=3;
     }
     currentOption = options[randomIndex];
-   console.log(currentOption);
-   console.log(spinsCounter);
+
 
     // Calculate the rotation angle based on the selected option
     const baseAngle = 360 / options.length; // Angle between each segment
@@ -236,7 +232,6 @@ document.addEventListener("DOMContentLoaded", function () {
       spinButton.disabled = false;
       let winnings=0
       if(currentOption.value==='free spins'){
-        console.log('freeSpins');
         remainingFreeSpins+=3;
         alert('Congratulations! You won 3 free spins!')
         winnings = freeSpins(currentBetAmount);
