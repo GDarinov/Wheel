@@ -13,7 +13,7 @@ body {
   }
   
   .background-image {
-    background-image: url("desktop-1920x1080(1).jpg");
+    background-image: url("background-image.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     width: 100%;
