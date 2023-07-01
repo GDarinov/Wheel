@@ -32,6 +32,9 @@ document.addEventListener("DOMContentLoaded", function () {
     { text: "20x",  value: 20 },
   ];
 
+  remainingFreeSpinsDisplay.style.color = "transparent";
+  totalWinningsDisplay.style.color = "transparent";
+
   let spinsCounter = 0;
 
   function delay(duration) {
@@ -76,29 +79,35 @@ document.addEventListener("DOMContentLoaded", function () {
 
   async function freeSpins(betAmount) {
     spinButton.disabled = true;
-    // remainingFreeSpinsDisplay.style.display = "block";
+    remainingFreeSpinsDisplay.style.color = "black";
+    totalWinningsDisplay.style.color = "black";
     let totalWinnings = 0;
-    remainingFreeSpinsDisplay.textContent = remainingFreeSpins;
+    totalWinningsDisplay.textContent = `Total Free Spin Winnings: ${totalWinnings} coins`;
+    remainingFreeSpinsDisplay.textContent = `Remaining Free Spins: ${remainingFreeSpins}`;
     while(remainingFreeSpins>0){
       let currentWin= await freeSpin(betAmount);
       if(currentWin>0)totalWinnings+=currentWin;
       remainingFreeSpins--;
-      totalWinningsDisplay.textContent = totalWinnings;
-     remainingFreeSpinsDisplay.textContent = remainingFreeSpins;
+      totalWinningsDisplay.textContent = `Total Free Spin Winnings: ${totalWinnings} coins`;
+     remainingFreeSpinsDisplay.textContent = `Remaining Free Spins: ${remainingFreeSpins}`;
     balance += currentWin;
     updateBalanceDisplay(); 
     }
-    totalWinningsDisplay.textContent = totalWinnings;
-    //totalWinningsDisplay.textContent = 0;
+    totalWinningsDisplay.textContent = `Total Free Spin Winnings: ${totalWinnings} coins`;
+    //totalWinningsDisplay.textContent = `Total Free Spin Winnings: 0 coins`;
 
   
     setTimeout(() => {
         alert("Congratulations! You won " + totalWinnings + " coins in free spins");
         lastWin.textContent = `Last win: ${totalWinnings} coins`;
-    totalWinningsDisplay.textContent = 0;
-     remainingFreeSpinsDisplay.textContent = remainingFreeSpins;
+    //totalWinningsDisplay.textContent = 0;
+     //remainingFreeSpinsDisplay.textContent = remainingFreeSpins;
+     remainingFreeSpinsDisplay.style.color = "transparent";
+    totalWinningsDisplay.style.color = "transparent";
+    
      spinButton.disabled = false;
       }, 1000); 
+      //totalWinningsDisplay.textContent = `Total Free Spin Winnings: 0 coins`;
     
     return totalWinnings;
   }
@@ -180,6 +189,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Function to spin the wheel
   function spinWheel() {
+    totalWinningsDisplay.textContent = `Total Free Spin Winnings: 0 coins`;
+
     spinsCounter++;
 
     if(spinsCounter%10===0){
@@ -191,7 +202,7 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    goodLuckMessage.textContent = "Good Luck!";
+    goodLuckMessage.style.color = "black";
 
     // Increase default angle
     defaultAngle += 1800;
@@ -241,7 +252,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Wait for the animation to finish and display the selected option
     setTimeout(function () {
-      goodLuckMessage.textContent = "";
+        goodLuckMessage.style.color = "transparent";
       spinButton.disabled = false;
       let winnings=0
       if(currentOption.value==='free spins'){
