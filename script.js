@@ -53,10 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if(spinsCounter%10===0){
         [threeNumbers,twoNumbers] = getNonConsecutiveNumbers();
       }
-        console.log(...threeNumbers);
-        console.log(...twoNumbers);
-        console.log(spinsCounter);
-    
+
 
       return new Promise((resolve) => {
           defaultAngle+=1800;
@@ -66,8 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if(spinsCounter%10===0){
     [threeNumbers,twoNumbers] = getNonConsecutiveNumbers();
 
-    console.log(...threeNumbers);
-    console.log(...twoNumbers)
+
 }
         // Get a random index to determine the selected option
 
@@ -244,9 +240,7 @@ document.addEventListener("DOMContentLoaded", function () {
   
     // Function to spin the wheel
     function spinWheel() {
-      console.log(spinsCounter)
-      console.log(...threeNumbers);
-      console.log(...twoNumbers)
+
       totalWinningsDisplay.textContent = `Total Free Spin Winnings: 0 coins`;
   
       spinsCounter++;
