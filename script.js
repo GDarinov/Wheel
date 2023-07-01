@@ -17,8 +17,8 @@ document.addEventListener("DOMContentLoaded", function () {
       { text: "1x", value: 1 },
       { text: "0", value: 0 },
       { text: "3x", value: 3 },
-      { text: "2x", value: 2 },
       { text: "0", value: 0 },
+      { text: "10x", value: 10 },
       { text: "1x", value: 1 },
       { text: "0",  value: 0 },
       { text: "3x", value: 3 },
@@ -28,8 +28,8 @@ document.addEventListener("DOMContentLoaded", function () {
       { text: "5x", value: 5 },
       { text: "0",  value: 0 },
       { text: "Free Spins", value: 'free spins' },
-      { text: "10x", value: 10 },
-      { text: "20x",  value: 20 },
+      { text: "0", value: 0 },
+      { text: "4x",  value: 4 },
     ];
   
     remainingFreeSpinsDisplay.style.color = "transparent";
@@ -246,7 +246,7 @@ document.addEventListener("DOMContentLoaded", function () {
       let randomIndex=0;
   
       if (spinsCounter % 10 === threeNumbers[0] || spinsCounter%10===threeNumbers[1] || spinsCounter%10===threeNumbers[2]){
-          randomIndex = 15;
+          randomIndex = 16;
       } else if (spinsCounter % 10 === twoNumbers[0] || spinsCounter%10===twoNumbers[1]){
           randomIndex=17;
       } else {
