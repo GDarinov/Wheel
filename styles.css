@@ -66,7 +66,7 @@ body {
     width: 400px;
     height: 400px;
     position: absolute;
-    clip-path: polygon(50% 50%, 0 40%, 0 60%);
+    clip-path: polygon(50% 50%, 0 42%, 0 60%);
     display: flex;
     justify-content: center;
     align-items: center;
