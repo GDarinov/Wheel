@@ -6,9 +6,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const lastWin = document.getElementById("last-win");
     const betButtons = document.querySelectorAll(".bet-button");
     const balanceDisplay = document.getElementById("balance-display");
-    const goodLuckMessage = document.getElementById("good-luck-message");
+    const message = document.getElementById("message");
     const remainingFreeSpinsDisplay = document.getElementById("remaining-free-spins");
     const totalWinningsDisplay = document.getElementById("total-winnings");
+    const freeSpinsInfo = document.querySelector(".free-spins-info");
+    const infoContainer = document.querySelector(".info-container");
+  
   
     // Store the available options and their respective values
     const options = [
@@ -42,6 +45,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   
     let remainingFreeSpins = 0;
+
+    let totalFreeSpins = 0;
   
     function freeSpin(betAmount) {
       return new Promise((resolve) => {
@@ -65,7 +70,8 @@ document.addEventListener("DOMContentLoaded", function () {
         delay(5000).then(() => {
           if(currentOption.value==='free spins'){
               remainingFreeSpins+=3;
-            alert('Congratulations! You won 3 more free spins')
+            message.textContent='Congratulations! You won 3 more free spins';
+            totalFreeSpins+=3;
             resolve(0); // Resolve with 0 winnings if it's a free spin
           } else {
             // Calculate the winnings based on the selected option and bet amount
@@ -84,8 +90,11 @@ document.addEventListener("DOMContentLoaded", function () {
         betButtons[i].disabled = true;
         betButtons[i].style.pointerEvents = "none";
       };
-      remainingFreeSpinsDisplay.style.color = "black";
-      totalWinningsDisplay.style.color = "black";
+      remainingFreeSpinsDisplay.style.color = "white";
+      totalWinningsDisplay.style.color = "white";
+      // Hide info-container
+      infoContainer.style.opacity = "0"; // Make infoContainer transparent when free spins start
+
       let totalWinnings = 0;
       totalWinningsDisplay.textContent = `Total Free Spin Winnings: ${totalWinnings} coins`;
       remainingFreeSpinsDisplay.textContent = `Remaining Free Spins: ${remainingFreeSpins}`;
@@ -104,9 +113,9 @@ document.addEventListener("DOMContentLoaded", function () {
     
       setTimeout(() => {
         if(totalWinnings>0){
-          alert("Congratulations! You won " + totalWinnings + " coins in free spins");
+            message.textContent=`Congratulations! You won ${totalWinnings} coins in ${totalFreeSpins} free spins`;
           lastWin.textContent = `Last win: ${totalWinnings} coins`;
-        }else alert("You won 0 coins in free spins. Better luck next time!")
+        }else message.textContent=`You won 0 coins in ${totalFreeSpins} free spins. Better luck next time!`;
           
       //totalWinningsDisplay.textContent = 0;
        //remainingFreeSpinsDisplay.textContent = remainingFreeSpins;
@@ -121,6 +130,8 @@ document.addEventListener("DOMContentLoaded", function () {
         betButtons[i].disabled = false;
         betButtons[i].style.pointerEvents = "auto";
       };
+      // Show info-container
+      infoContainer.style.opacity = "1"; 
    
         }, 1000); 
         //totalWinningsDisplay.textContent = `Total Free Spin Winnings: 0 coins`;
@@ -214,18 +225,20 @@ document.addEventListener("DOMContentLoaded", function () {
       }
       //spinsCounter++;
       if (currentBetAmount === 0) {
-        alert("Please choose a bet amount.");
+        message.textContent="Please choose a bet amount.";
         return;
       }
+
+      message.textContent='Good Luck!';
   
-      goodLuckMessage.style.color = "black";
+      message.style.color = "black";
   
       // Increase default angle
       defaultAngle += 1800;
   
       // Check if the bet amount is greater than the balance
       if (currentBetAmount > balance) {
-        return alert("Insufficient balance. Please choose a lower bet amount.");
+        return message.textContent="Insufficient balance. Please choose a lower bet amount.";
       }
   
       // Deduct the bet amount from the balance
@@ -246,7 +259,7 @@ document.addEventListener("DOMContentLoaded", function () {
       let randomIndex=0;
   
       if (spinsCounter % 10 === threeNumbers[0] || spinsCounter%10===threeNumbers[1] || spinsCounter%10===threeNumbers[2]){
-          randomIndex = 16;
+          randomIndex = 15;
       } else if (spinsCounter % 10 === twoNumbers[0] || spinsCounter%10===twoNumbers[1]){
           randomIndex=17;
       } else {
@@ -270,7 +283,7 @@ document.addEventListener("DOMContentLoaded", function () {
   
       // Wait for the animation to finish and display the selected option
       setTimeout(function () {
-          goodLuckMessage.style.color = "transparent";
+          message.style.color = "black";
         
           spinButton.disabled = false;
      spinButton.style.pointerEvents = "auto";
@@ -284,7 +297,8 @@ document.addEventListener("DOMContentLoaded", function () {
         if(currentOption.value==='free spins'){
           spinButton.disabled=true;
           remainingFreeSpins+=3;
-          alert('Congratulations! You won 3 free spins!')
+          totalFreeSpins+=3;
+          message.textContent='Congratulations! You won 3 free spins!';
           winnings = freeSpins(currentBetAmount);
           spinButton.disabled=false;
           
@@ -299,16 +313,18 @@ document.addEventListener("DOMContentLoaded", function () {
         balance +=winnings;
           updateBalanceDisplay()
   
-          alert("Congratulations! You won " + winnings + " coins.");
+          message.textContent="Congratulations! You won " + winnings + " coins.";
         } else if(winnings===0){
           // Enable the bet buttons
       for (let i = 0; i < betButtons.length; i++) {
           betButtons[i].disabled = false;
         }
-           alert("Try again!");
+           message.textContent="Try again!";
         }
       }, 5000); 
+      totalFreeSpins=0;
     }
+    
   
     // Update the balance display initially
     updateBalanceDisplay();

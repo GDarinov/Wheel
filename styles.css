@@ -9,7 +9,7 @@ body {
     width: 100%;
     height: 100%;
     z-index: -1;
-    filter: blur(2px);
+    filter: blur(4px);
   }
   
   .background-image {
@@ -39,11 +39,14 @@ body {
   }
   
   .wheel {
-    position: relative;
+    position: absolute;
+  top: 50px; /* Adjust the top value as needed */
+  margin-top: 40px; /* Adjust the margin-top value as needed */
+  text-align: center;
     width: 400px;
     height: 400px;
-    background-color: rgb(198, 18, 18);
-    border: 7px dotted rgb(246, 246, 2);
+    background-color: #ff0000;
+    border: 7px dotted #fffc00;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -51,13 +54,19 @@ body {
     font-size: 24px;
     transition: transform 5s ease-in-out; 
     transform-origin: center;
+    transform-style: preserve-3d;
   }
   
   .wheel-segment {
+    outline: none;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+    overflow: hidden;
+    border:none;
     width: 400px;
     height: 400px;
     position: absolute;
-    clip-path: polygon(50% 50%, 0 42%, 0 60%);
+    clip-path: polygon(50% 50%, 0 40%, 0 60%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -67,6 +76,7 @@ body {
     text-align: center;
     transform-origin: 50% 50%; 
     border-radius: 50%;
+    transform: rotate(0.05deg);
 }
 
 .segment-value {
@@ -78,25 +88,37 @@ body {
     z-index: 1;
   }
 
-  .good-luck-message {
+  #message {
     position: absolute;
-    top: 10px;
+    top: -100px; /* Adjust the top value as needed */
     left: 50%;
+    width: 400px;
     transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.7);
-    padding: 10px;
-    color: white;
-    font-size: 20px;
-    display: none;
+    display: block;
+    padding: 9px;
+     font-size: 15px;
+     border-width: 4px;
+     border-color: #ff0000;
+     background-color: #ffea00;
+     color: #000000;
+     border-style: double;
+     border-radius: 21px;
+     box-shadow: 1px 4px 7px rgba(253,47,0,.34);
   }
   
   .display-area {
-    margin-top: 60px;
-    text-align: center;
+    position: absolute;
+    left:50%;
+    transform: translateX(-50%);
+
+  top: 380px; /* Adjust the top value as needed */
+  margin-top: 250px; /* Adjust the margin-top value as needed */
+  text-align: center;
   }
   
   .bet-buttons {
-    margin-top: 10px;
+    margin-top: 130px;
+
   }
   
   .bet-button {
@@ -131,7 +153,14 @@ body {
   }
 
   .spin-button {
-    margin-top: 10px;
+    position: absolute;
+  top: 100px; 
+  left:50%;
+    transform: translateX(-50%);
+
+  margin-top: 100px; 
+  text-align: center;
+    /* //margin-top: 10px; */
     padding: 10px 20px;
     font-size: 16px;
     background: #2ECC71;
@@ -152,9 +181,61 @@ body {
     word-break: break-word;
     border: 0;
   }
+  .info-container,
+  .free-spins-info {
+    text-align: center;
+    width: 350px;
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    top: 0;
+    padding: 9px;
+    font-size: 15px;
+    border-width: 6px;
+    border-color: #fffc00;
+    background-color: #ff0000;
+    color: #ffffff;
+    /* width: fit-content; */
+    border-style: dotted;
+    border-radius: 50px;
+    box-shadow: 6px 5px 13px rgba(66, 66, 66, 0.68);
+    text-shadow: 0px 0px 5px rgba(66, 66, 66, 0.75);
+  }
+  
+  .free-spins-info {
+    margin-top: 0; /* Remove the margin-top */
+  }
+
+  .info-container {
+    text-align: center;
+    width:350px;
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    top:0px;
+    padding: 9px;
+     font-size: 15px;
+     border-width: 6px;
+     border-color: #fffc00;
+     background-color: #ff0000;
+     color: #ffffff;
+     /* width: fit-content; */
+     border-style: dotted;
+     border-radius: 50px;
+     box-shadow: 6px 5px 13px rgba(66,66,66,.68);
+     text-shadow: 0px 0px 5px rgba(66,66,66,.75);
+  } */
+  
+  #last-win, #balance-display {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #fff;
+  }
   
 
   .arrow-img {
+    position: absolute;
+  top: 20px; /* Adjust the top value as needed */
     animation: floatImage 1s ease-in-out infinite;
 }
 
