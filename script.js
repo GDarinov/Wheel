@@ -49,12 +49,40 @@ document.addEventListener("DOMContentLoaded", function () {
     let totalFreeSpins = 0;
   
     function freeSpin(betAmount) {
+      spinsCounter++;
+      if(spinsCounter%10===0){
+        [threeNumbers,twoNumbers] = getNonConsecutiveNumbers();
+      }
+        console.log(...threeNumbers);
+        console.log(...twoNumbers);
+        console.log(spinsCounter);
+    
+
       return new Promise((resolve) => {
           defaultAngle+=1800;
         // The original code for your freeSpin function here, but without the setTimeout...
-  
+  let randomIndex=0;
+
+  if(spinsCounter%10===0){
+    [threeNumbers,twoNumbers] = getNonConsecutiveNumbers();
+
+    console.log(...threeNumbers);
+    console.log(...twoNumbers)
+}
         // Get a random index to determine the selected option
-        const randomIndex = Math.floor(Math.random() * options.length);
+
+        if (spinsCounter % 10 === threeNumbers[0] || spinsCounter%10===threeNumbers[1] || spinsCounter%10===threeNumbers[2]){
+          randomIndex = 15;
+      } else if (spinsCounter % 10 === twoNumbers[0] || spinsCounter%10===twoNumbers[1]){
+          randomIndex=17;
+      } else {
+          randomIndex = Math.floor(Math.random() * options.length);
+  
+          if (randomIndex>15) {
+              randomIndex-=3;
+          }
+      }
+        //randomIndex = Math.floor(Math.random() * options.length);
         currentOption = options[randomIndex];
   
         // Calculate the rotation angle based on the selected option
@@ -216,6 +244,9 @@ document.addEventListener("DOMContentLoaded", function () {
   
     // Function to spin the wheel
     function spinWheel() {
+      console.log(spinsCounter)
+      console.log(...threeNumbers);
+      console.log(...twoNumbers)
       totalWinningsDisplay.textContent = `Total Free Spin Winnings: 0 coins`;
   
       spinsCounter++;
