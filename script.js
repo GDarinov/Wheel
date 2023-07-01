@@ -2,7 +2,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   // Get references to elements
   const wheel = document.querySelector(".wheel");
-  const spinButton = document.getElementById("spin-button");
+  const spinButton = document.querySelector(".spin-button");
   const lastWin = document.getElementById("last-win");
   const betButtons = document.querySelectorAll(".bet-button");
   const balanceDisplay = document.getElementById("balance-display");
@@ -75,6 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   async function freeSpins(betAmount) {
+    spinButton.disabled = true;
     // remainingFreeSpinsDisplay.style.display = "block";
     let totalWinnings = 0;
     remainingFreeSpinsDisplay.textContent = remainingFreeSpins;
@@ -87,12 +88,18 @@ document.addEventListener("DOMContentLoaded", function () {
     balance += currentWin;
     updateBalanceDisplay(); 
     }
+    totalWinningsDisplay.textContent = totalWinnings;
+    //totalWinningsDisplay.textContent = 0;
 
   
-    alert("Congratulations! You won " + totalWinnings + " coins in free spins")
-    lastWin.textContent = `Last win: ${totalWinnings} coins`;
+    setTimeout(() => {
+        alert("Congratulations! You won " + totalWinnings + " coins in free spins");
+        lastWin.textContent = `Last win: ${totalWinnings} coins`;
     totalWinningsDisplay.textContent = 0;
      remainingFreeSpinsDisplay.textContent = remainingFreeSpins;
+     spinButton.disabled = false;
+      }, 1000); 
+    
     return totalWinnings;
   }
 
@@ -136,7 +143,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let defaultAngle = 0;
 
-  //Get the spin indexes for the rigged spins
+  // Get the spin indexes for the rigged spins
   function getNonConsecutiveNumbers() {
     const digits = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   
@@ -184,15 +191,14 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    goodLuckMessage.style.display = "block";
+    goodLuckMessage.textContent = "Good Luck!";
 
     // Increase default angle
     defaultAngle += 1800;
 
     // Check if the bet amount is greater than the balance
     if (currentBetAmount > balance) {
-      alert("Insufficient balance. Please choose a lower bet amount.");
-      return;
+      return alert("Insufficient balance. Please choose a lower bet amount.");
     }
 
     // Deduct the bet amount from the balance
@@ -202,17 +208,24 @@ document.addEventListener("DOMContentLoaded", function () {
     // Disable the spin button
     spinButton.disabled = true;
 
+    // Disable the bet buttons
+    for (let i = 0; i < betButtons.length; i++) {
+        betButtons[i].disabled = true;
+      }
 
     // Get a random index to determine the selected option
     let randomIndex=0;
-    if(spinsCounter%10===threeNumbers[0] || spinsCounter%10===threeNumbers[1] || spinsCounter%10===threeNumbers[2]){
-        randomIndex=16;
-    }
-    else if(spinsCounter%10===twoNumbers[0] || spinsCounter%10===twoNumbers[1]){
+
+    if (spinsCounter % 10 === threeNumbers[0] || spinsCounter%10===threeNumbers[1] || spinsCounter%10===threeNumbers[2]){
+        randomIndex = 15;
+    } else if (spinsCounter % 10 === twoNumbers[0] || spinsCounter%10===twoNumbers[1]){
         randomIndex=17;
-    }else {
+    } else {
         randomIndex = Math.floor(Math.random() * options.length);
-        if(randomIndex>15)randomIndex-=3;
+
+        if (randomIndex>15) {
+            randomIndex-=3;
+        }
     }
     currentOption = options[randomIndex];
 
@@ -228,13 +241,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Wait for the animation to finish and display the selected option
     setTimeout(function () {
-      goodLuckMessage.style.display = "none";
+      goodLuckMessage.textContent = "";
       spinButton.disabled = false;
       let winnings=0
       if(currentOption.value==='free spins'){
+        spinButton.disabled=true;
         remainingFreeSpins+=3;
         alert('Congratulations! You won 3 free spins!')
         winnings = freeSpins(currentBetAmount);
+        spinButton.disabled=false;
         
       }else{
       // Calculate the winnings based on the selected option and bet amount
@@ -248,7 +263,13 @@ document.addEventListener("DOMContentLoaded", function () {
         updateBalanceDisplay()
 
         alert("Congratulations! You won " + winnings + " coins.");
-      } else if(winnings===0) alert("Try again!");
+      } else if(winnings===0){
+        // Enable the bet buttons
+    for (let i = 0; i < betButtons.length; i++) {
+        betButtons[i].disabled = false;
+      }
+         alert("Try again!");
+      }
     }, 5000); 
   }
 
