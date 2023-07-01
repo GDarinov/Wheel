@@ -103,8 +103,11 @@ document.addEventListener("DOMContentLoaded", function () {
   
     
       setTimeout(() => {
+        if(totalWinnings>0){
           alert("Congratulations! You won " + totalWinnings + " coins in free spins");
           lastWin.textContent = `Last win: ${totalWinnings} coins`;
+        }else alert("You won 0 coins in free spins. Better luck next time!")
+          
       //totalWinningsDisplay.textContent = 0;
        //remainingFreeSpinsDisplay.textContent = remainingFreeSpins;
        remainingFreeSpinsDisplay.style.color = "transparent";
