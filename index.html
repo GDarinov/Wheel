@@ -6,12 +6,13 @@
   <link rel="shortcut icon" href="#">
 </head>
 <body>
+    <div class="background-container">
+        <div class="background-image"></div>
+      </div>
     <div class="container">
         <img class="arrow-img" src="pngegg.png" height="70px" width="50px" />
         <div class="wheel">
-            <div class="wheel-segment" style="transform: rotate(0deg); background-color: green;">
-                <span class="segment-value"></span>
-            </div>
+            <div class="wheel-segment" style="transform: rotate(0deg); background-color: green;"><span class="segment-value"></span></div>
             <div class="wheel-segment" style="transform: rotate(20deg); background-color: orange;"><span class="segment-value"></span></div>
             <div class="wheel-segment" style="transform: rotate(40deg); background-color: purple;"><span class="segment-value"></span></div>
             <div class="wheel-segment" style="transform: rotate(60deg); background-color: cyan;"><span class="segment-value"></span></div>
@@ -42,10 +43,10 @@
               <button class="bet-button" data-bet-amount="10">10</button>
               <button class="bet-button" data-bet-amount="20">20</button>
               <button class="bet-button" data-bet-amount="50">50</button>
-              <p id="balance-display">Balance: 500 coins</p> <!-- Add balance display -->
+              <p id="balance-display">Balance: 500 coins</p> 
             </div>
           </div>
-          <button id="spin-button">Spin</button>
+          <button class="spin-button">Spin</button>
         </div>
 
   <script src="script.js"></script>
